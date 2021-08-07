@@ -7,7 +7,7 @@
     </div>
     <div v-else class="memo-container">
       <memo-list :items="memoItems" @create="createItem" @select="selectItem"></memo-list>
-      <memo-form :selectedItem="selectedItem" :selectedIndex="selectedIndex" @update="updateItem" @delete="deleteItem" v-show="editing"></memo-form>
+      <memo-form :selectedItem="selectedItem" :selectedIndex="selectedIndex" @update="updateItem" @delete="deleteItem" @change="changeSelectedItem" v-show="editing"></memo-form>
     </div>
   </div>
 </template>
@@ -85,6 +85,9 @@ export default {
     resetSelection: function () {
       this.selectedItem = null
       this.selectedIndex = null
+    },
+    changeSelectedItem: function (newBody) {
+      this.selectedItem = newBody
     }
   }
 }

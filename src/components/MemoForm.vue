@@ -1,6 +1,6 @@
 <template>
   <div class="memo-form-container">
-    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" :value="selectedItem"></textarea>
+    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" v-model="selectedItemInput"></textarea>
     <button @click="updateItem">更新</button>
     <button @click="deleteItem">削除</button>
   </div>
@@ -22,11 +22,21 @@ export default {
   },
   methods: {
     updateItem: function () {
-      const newBody = document.querySelector("#memo-body").value
+      const newBody = this.selectedItemInput
       this.$emit('update', this.selectedIndex, newBody)
     },
     deleteItem: function () {
       this.$emit('delete', this.selectedIndex)
+    }
+  },
+  computed: {
+    selectedItemInput: {
+      get: function () {
+        return this.selectedItem
+      },
+      set: function (newBody) {
+        this.$emit('change', newBody)
+      }
     }
   }
 }
