@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .memo-form-container {
   width: 45%;
   margin-right: 20px;
