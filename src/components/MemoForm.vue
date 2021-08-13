@@ -23,10 +23,10 @@ export default {
   methods: {
     updateItem: function () {
       const newBody = document.querySelector("#memo-body").value
-      this.$emit('update', this.selectedIndex, newBody)
+      this.$emit('update', newBody)
     },
     deleteItem: function () {
-      this.$emit('delete', this.selectedIndex)
+      this.$emit('delete')
     }
   }
 }

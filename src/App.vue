@@ -67,13 +67,13 @@ export default {
       this.selectedIndex = index
       this.editing = true
     },
-    updateItem: function(index, newBody) {
-      this.memoItems[index] = newBody
-      this.selectItem(index)
+    updateItem: function(newBody) {
+      this.memoItems[this.selectedIndex] = newBody
+      this.selectItem(this.selectedIndex)
       this.saveMemos()
     },
-    deleteItem: function(index) {
-      this.memoItems.splice(index, 1)
+    deleteItem: function() {
+      this.memoItems.splice(this.selectedIndex, 1)
       if (this.memoItems.length === 0) {
         this.resetSelection()
       } else {
