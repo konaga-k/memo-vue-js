@@ -80,11 +80,7 @@ export default {
     },
     deleteItem: function() {
       this.memoItems.splice(this.selectedIndex, 1)
-      if (this.memoItems.length === 0) {
-        this.resetSelection()
-      } else {
-        this.selectItem(0)
-      }
+      this.resetSelection()
       this.editing = false
       this.saveMemos()
     },
