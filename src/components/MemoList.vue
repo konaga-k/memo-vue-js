@@ -1,8 +1,8 @@
 <template>
   <div class="memo-list-container">
     <ul>
-      <li v-for="(item, index) in items" :key="item">
-        <span class="memo-item" @click="changeSelectedItem(index)">{{ memoHead(item) }}</span>
+      <li v-for="(item, index) in items" :key="item.key">
+        <span class="memo-item" @click="changeSelectedItem(index)">{{ memoHead(item.body) }}</span>
       </li>
       <li>
         <span class="memo-item" @click="createItem">+</span>

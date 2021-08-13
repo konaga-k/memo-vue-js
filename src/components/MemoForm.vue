@@ -1,6 +1,6 @@
 <template>
   <div class="memo-form-container">
-    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" :value="selectedItem"></textarea>
+    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" :value="selectedItemBody"></textarea>
     <button @click="updateItem">更新</button>
     <button @click="deleteItem">削除</button>
   </div>
@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    selectedItem: {
+    selectedItemBody: {
       type: String,
       required: false,
       default: null

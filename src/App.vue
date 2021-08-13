@@ -7,7 +7,7 @@
     </div>
     <div v-else class="memo-container">
       <memo-list :items="memoItems" @create="createItem" @select="selectItem"></memo-list>
-      <memo-form :selectedItem="selectedItem" :selectedIndex="selectedIndex" @update="updateItem" @delete="deleteItem" v-show="editing"></memo-form>
+      <memo-form :selectedItemBody="selectedItem.body" :selectedIndex="selectedIndex" @update="updateItem" @delete="deleteItem" v-show="editing"></memo-form>
     </div>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
       signingIn: false,
       currentUser: null,
       memoItems: [],
-      selectedItem: null,
+      nextItemId: 1,
+      selectedItem: { id: null, body: null },
       selectedIndex: null,
       editing: false
     }
@@ -43,7 +44,12 @@ export default {
         // firebase...child(this.currentUser.uid)をexport defaultの外で予め定数化したいが、
         //   非サインイン時にcurrentUser（=undefined）を呼び出そうとしてエラーになってしまう
         firebase.database().ref(dbKey).child(this.currentUser.uid).on('value', (snapshot) => {
-          this.memoItems = snapshot.val() ? Object.values(snapshot.val()) : []
+          if (snapshot.val()) {
+            this.memoItems = Object.values(snapshot.val())
+            this.nextItemId = this.memoItems[this.memoItems.length - 1].id + 1
+          } else {
+            this.memoItems = []
+          }
         })
       } else {
         this.currentUser = null
@@ -58,7 +64,7 @@ export default {
       firebase.database().ref(dbKey).child(this.currentUser.uid).set(this.memoItems)
     },
     createItem: function() {
-      const newItem = '新規メモ'
+      const newItem = { id: this.nextItemId,  body: '新規メモ' }
       this.memoItems.push(newItem)
       this.saveMemos()
     },
@@ -68,7 +74,7 @@ export default {
       this.editing = true
     },
     updateItem: function(newBody) {
-      this.memoItems[this.selectedIndex] = newBody
+      this.memoItems[this.selectedIndex].body = newBody
       this.selectItem(this.selectedIndex)
       this.saveMemos()
     },
@@ -83,7 +89,7 @@ export default {
       this.saveMemos()
     },
     resetSelection: function () {
-      this.selectedItem = null
+      this.selectedItem = { id: null, body: null }
       this.selectedIndex = null
     }
   }
