@@ -1,6 +1,6 @@
 <template>
   <div class="memo-form-container">
-    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" :value="selectedItemBody"></textarea>
+    <textarea name="memo-body" id="memo-body" class="memo-body" rows="10" :value="selectedItemBody" @input="form.body=$event.target.value"></textarea>
     <button @click="updateItem">更新</button>
     <button @click="deleteItem">削除</button>
   </div>
@@ -20,10 +20,16 @@ export default {
       default: null
     }
   },
+  data() {
+    return {
+      form: {
+        body: this.selectedItemBody,
+      },
+    }
+  },
   methods: {
     updateItem: function () {
-      const newBody = document.querySelector("#memo-body").value
-      this.$emit('update', newBody)
+      this.$emit('update', this.form.body)
     },
     deleteItem: function () {
       this.$emit('delete')
