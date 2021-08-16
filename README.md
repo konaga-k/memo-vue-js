@@ -9,7 +9,7 @@ npm install
 `./.env` を作成して以下を記述してください
 APIキーの値は開発者に確認してください
 ```sh
-FIREBASE_API_KEY=XXX
+VUE_APP_FIREBASE_API_KEY=XXX
 ```
 
 ### 実行
